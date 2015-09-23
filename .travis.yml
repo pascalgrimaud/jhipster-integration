@@ -4,9 +4,12 @@ services:
 before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
+install:
   - npm install -g yo
   - npm install -g bower
-install:
+  - npm install -g grunt-cli
+  - npm install -g gulp
+  - npm install -g generator-jhipster@2.21.0
 script:
   - java -version
   - git --version
@@ -15,5 +18,7 @@ script:
   - node -v
   - npm -v
   - bower -v
+  - grunt --version
+  - gulp -v
   - grunt --version
   - echo "hello jhipster !"
