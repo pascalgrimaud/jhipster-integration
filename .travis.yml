@@ -22,4 +22,6 @@ script:
   - gulp -v
   - grunt --version
   - echo "hello jhipster !"
-  - cd app-cassandra && yo jhipster --force --no-insight
+  - cd sample-app && yo jhipster --force --no-insight
+  - cd sample-app && mvn spring-boot:run
+  - ps ux
