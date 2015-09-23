@@ -12,10 +12,10 @@ install:
   # - npm install -g generator-jhipster@2.21.0
   - docker pull jdubois/jhipster-docker
   - docker run -d --name=app -u jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
-  - docker pull mysql
-  - docker pull postgres
-  - docker pull mongo
-  - docker pull cassandra
+  # - docker pull mysql
+  # - docker pull postgres
+  # - docker pull mongo
+  # - docker pull cassandra
   # - java -version
   # - git --version
   # - yo --version
@@ -30,9 +30,10 @@ install:
   # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-postgresql/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-mongodb/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-cassandra/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
-  - sleep 20
+  - sleep 10
+  - docker ps -a
   - docker logs app
-  - sleep 160
+  - sleep 60
   - ls -l `pwd`/sample-app/
   # - ls -l `pwd`/sample-app-mysql/
 script:
