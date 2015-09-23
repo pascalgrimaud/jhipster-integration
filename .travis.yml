@@ -10,7 +10,10 @@ install:
   - npm install -g grunt-cli
   - npm install -g gulp
   - npm install -g generator-jhipster@2.21.0
+  - docker pull mysql
+  - docker pull postgres
   - docker pull mongo
+  - docker pull cassandra
   - java -version
   - git --version
   - yo --version
@@ -21,11 +24,38 @@ install:
   - grunt --version
   - gulp -v
   - grunt --version
+  - cd sample-app && yo jhipster --force --no-insight
+  - cd ../sample-app-mysql && yo jhipster --force --no-insight
+  - cd ../sample-app-postgresql && yo jhipster --force --no-insight
+  - cd ../sample-app-mongodb && yo jhipster --force --no-insight
+  - cd ../sample-app-cassandra && yo jhipster --force --no-insight
 script:
   #------------------
   #--- sample-app ---
   #------------------
-  - cd sample-app && yo jhipster --force --no-insight
+  - cd sample-app/
+  - mvn spring-boot:run &
+  - sleep 120
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp
+  - cd ..
+  #------------------------
+  #--- sample-app-mysql ---
+  #------------------------
+  - docker run -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=xxx mysql
+  - sleep 10
+  - cd sample-app-mysql/
+  - mvn spring-boot:run &
+  - sleep 120
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp
+  - cd ..
+  #-----------------------------
+  #--- sample-app-postgresql ---
+  #-----------------------------
+  - docker run -d -p 5432:5432 -e POSTGRES_USER=samplePostgreSQL postgres
+  - sleep 10
+  - cd sample-app-postgresql/
   - mvn spring-boot:run &
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
@@ -35,7 +65,8 @@ script:
   #--- sample-app-mongodb ---
   #--------------------------
   - docker run -d -p 27017:27017 mongo
-  - cd sample-app-mongodb && yo jhipster --force --no-insight
+  - sleep 10
+  - cd sample-app-mongodb/
   - mvn spring-boot:run &
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
