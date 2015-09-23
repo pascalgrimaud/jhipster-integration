@@ -22,5 +22,4 @@ script:
   - gulp -v
   - grunt --version
   - echo "hello jhipster !"
-  - cd app-cassandra && yo jhipster
-  
+  - cd app-cassandra && yo jhipster --force
