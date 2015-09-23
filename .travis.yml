@@ -5,13 +5,13 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
-  # - npm install -g yo
-  # - npm install -g bower
+  - npm install -g yo
+  - npm install -g bower
   # - npm install -g grunt-cli
   # - npm install -g gulp
   # - npm install -g generator-jhipster@2.21.0
   - docker pull jdubois/jhipster-docker
-  - docker run -d --name=app -u jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  - docker run -d --name=app -u jhipster -w /jhipster -v sample-app/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   # - docker pull mysql
   # - docker pull postgres
   # - docker pull mongo
