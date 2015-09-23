@@ -29,6 +29,7 @@ install:
   - cd ../sample-app-postgresql && yo jhipster --force --no-insight
   - cd ../sample-app-mongodb && yo jhipster --force --no-insight
   - cd ../sample-app-cassandra && yo jhipster --force --no-insight
+  - cd ..
 script:
   #------------------
   #--- sample-app ---
