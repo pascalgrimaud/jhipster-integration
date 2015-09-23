@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - sudo service docker restart ; sleep 10
+  - java -version
+  - git --version
+  - yo --version
+  - mvn -v
+  - node -v
+  - npm -v
+  - bower -v
+  - grunt --version
+install:
+script:
+  - echo "hello jhipster !"
