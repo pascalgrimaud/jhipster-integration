@@ -5,55 +5,56 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
-  - npm install -g yo
-  - npm install -g bower
-  - npm install -g grunt-cli
-  - npm install -g gulp
-  - npm install -g generator-jhipster@2.21.0
+  # - npm install -g yo
+  # - npm install -g bower
+  # - npm install -g grunt-cli
+  # - npm install -g gulp
+  # - npm install -g generator-jhipster@2.21.0
   - docker pull jdubois/jhipster-docker
+  - docker run -d --name=app -u jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   - docker pull mysql
   - docker pull postgres
   - docker pull mongo
   - docker pull cassandra
-  - java -version
-  - git --version
-  - yo --version
-  - mvn -v
-  - node -v
-  - npm -v
-  - bower -v
-  - grunt --version
-  - gulp -v
-  - grunt --version
-  - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
-  - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-mysql/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  # - java -version
+  # - git --version
+  # - yo --version
+  # - mvn -v
+  # - node -v
+  # - npm -v
+  # - bower -v
+  # - grunt --version
+  # - gulp -v
+  # - grunt --version
+  # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-mysql/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-postgresql/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-mongodb/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
   # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-cassandra/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
-  - sleep 180
+  - sleep 20
+  - docker logs app
+  - sleep 160
   - ls -l `pwd`/sample-app/
-  - ls -l `pwd`/sample-app-mysql/
+  # - ls -l `pwd`/sample-app-mysql/
 script:
   #------------------
   #--- sample-app ---
   #------------------
-  - cd sample-app/
+  - cd `pwd`/sample-app/
   - mvn spring-boot:run &
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp
-  - cd ..
   #------------------------
   #--- sample-app-mysql ---
   #------------------------
-  - docker run -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=xxx mysql
-  - sleep 10
-  - cd sample-app-mysql/
-  - mvn spring-boot:run &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp
-  - cd ..
+  # - docker run -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=xxx mysql
+  # - sleep 10
+  # - cd `pwd`/sample-app-mysql/
+  # - mvn spring-boot:run &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp
+  # - cd ..
   #-----------------------------
   #--- sample-app-postgresql ---
   #-----------------------------
