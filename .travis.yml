@@ -10,6 +10,7 @@ install:
   - npm install -g grunt-cli
   - npm install -g gulp
   - npm install -g generator-jhipster@2.21.0
+  - docker pull jdubois/jhipster-docker
   - docker pull mysql
   - docker pull postgres
   - docker pull mongo
@@ -24,12 +25,14 @@ install:
   - grunt --version
   - gulp -v
   - grunt --version
-  - cd sample-app && yo jhipster --force --no-insight
-  - cd ../sample-app-mysql && yo jhipster --force --no-insight
-  - cd ../sample-app-postgresql && yo jhipster --force --no-insight
-  - cd ../sample-app-mongodb && yo jhipster --force --no-insight
-  - cd ../sample-app-cassandra && yo jhipster --force --no-insight
-  - cd ..
+  - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-mysql/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-postgresql/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-mongodb/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  # - docker run -d -u jhipster -w /jhipster -v `pwd`/sample-app-cassandra/:/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  - sleep 180
+  - ls -l `pwd`/sample-app/
+  - ls -l `pwd`/sample-app-mysql/
 script:
   #------------------
   #--- sample-app ---
@@ -54,24 +57,24 @@ script:
   #-----------------------------
   #--- sample-app-postgresql ---
   #-----------------------------
-  - docker run -d -p 5432:5432 -e POSTGRES_USER=samplePostgreSQL postgres
-  - sleep 10
-  - cd sample-app-postgresql/
-  - mvn spring-boot:run &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp
-  - sleep 10
-  - cd ..
+  # - docker run -d -p 5432:5432 -e POSTGRES_USER=samplePostgreSQL postgres
+  # - sleep 10
+  # - cd sample-app-postgresql/
+  # - mvn spring-boot:run &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp
+  # - sleep 10
+  # - cd ..
   #--------------------------
   #--- sample-app-mongodb ---
   #--------------------------
-  - docker run -d -p 27017:27017 mongo
-  - sleep 10
-  - cd sample-app-mongodb/
-  - mvn spring-boot:run &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp
-  - sleep 10
-  - cd ..
+  # - docker run -d -p 27017:27017 mongo
+  # - sleep 10
+  # - cd sample-app-mongodb/
+  # - mvn spring-boot:run &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp
+  # - sleep 10
+  # - cd ..
