@@ -3,6 +3,8 @@ services:
   - docker
 before_install:
   - sudo service docker restart ; sleep 10
+install:
+script:
   - java -version
   - git --version
   - yo --version
@@ -11,6 +13,4 @@ before_install:
   - npm -v
   - bower -v
   - grunt --version
-install:
-script:
   - echo "hello jhipster !"
