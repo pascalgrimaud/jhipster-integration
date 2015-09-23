@@ -3,6 +3,8 @@ services:
   - docker
 before_install:
   - sudo service docker restart ; sleep 10
+  - npm install -g yo
+  - npm install -g bower
 install:
 script:
   - java -version
