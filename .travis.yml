@@ -23,5 +23,6 @@ script:
   - grunt --version
   - echo "hello jhipster !"
   - cd sample-app && yo jhipster --force --no-insight
-  - cd sample-app && mvn spring-boot:run
+  - ls -l
+  - mvn spring-boot:run
   - ps ux
