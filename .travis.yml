@@ -11,10 +11,11 @@ install:
   # - npm install -g gulp
   # - npm install -g generator-jhipster@2.21.0
   - docker pull jdubois/jhipster-docker
-  - docker run -d --name=app -u jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker
+  - docker run -d --name=app --user=jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker
   - sleep 5
-  - docker exec -it -u jhipster app ls -l /jhipster
-  - docker exec -d -u jhipster app yo jhipster --inforce --no-insight 
+  - docker ps -a
+  - docker exec --user=jhipster -it app ls -l /jhipster
+  - docker exec --user=jhipster -d app yo jhipster --inforce --no-insight 
   # - docker pull mysql
   # - docker pull postgres
   # - docker pull mongo
