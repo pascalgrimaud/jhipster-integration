@@ -42,7 +42,9 @@ install:
   # - ls -l `pwd`/sample-app/
   # - ls -l `pwd`/sample-app-mysql/
 script:
-  - docker run -u jhipster --name=app -w /home/jhipster/ -v `pwd`/sample-app/:/home/jhipster/ jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  - docker run -d --name=app -v `pwd`/sample-app/:/home/jhipster/ jdubois/jhipster-docker
+  - docker exec -it app ls -l /home/jhipster
+  - docker exec -it app yo jhipster --inforce --no-insight
   - docker logs app
   #------------------
   #--- sample-app ---
