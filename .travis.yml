@@ -10,11 +10,12 @@ install:
   # - npm install -g grunt-cli
   # - npm install -g gulp
   # - npm install -g generator-jhipster@2.21.0
+  - docker version
   - docker pull jdubois/jhipster-docker
   - docker run -d -p 4022:22 --name=app --user=jhipster -w /jhipster -v `pwd`/sample-app/:/jhipster/ jdubois/jhipster-docker
  # - sleep 5
   - docker ps -a
-  - docker exec --user=jhipster -it app ls -l /jhipster
+  - docker exec --user=jhipster -it app ls -l
   - docker exec --user=jhipster -d app yo jhipster --inforce --no-insight 
   # - docker pull mysql
   # - docker pull postgres
