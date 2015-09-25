@@ -11,8 +11,8 @@ install:
 script:
   - pwd
   - echo `pwd`
-  - echo $PATH
+  - echo $HOME
   - cd `pwd`/sample-app/
   - ls -l
-  - cd $PATH/sample-app/
+  - cd $HOME/sample-app/
   - ls -l
