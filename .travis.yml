@@ -11,15 +11,16 @@ install:
   - npm install -g bower
   - npm install -g grunt-cli
   - npm install -g gulp
+  - npm install -g generator-jhipster@2.21.1
   - git clone https://github.com/pascalgrimaud/generator-jhipster
   - cd generator-jhipster/
-  - npm install
-  - docker version
+  - npm link
   # - docker pull mysql
   # - docker pull postgres
   # - docker pull mongo
   # - docker pull cassandra
 script:
+  - docker version
   - java -version
   - git --version
   - yo --version
