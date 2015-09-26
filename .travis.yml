@@ -5,13 +5,34 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
+  - npm install -g yo
+  - npm install -g bower
+  - npm install -g grunt-cli
+  - npm install -g gulp
+  - git clone https://github.com/pascalgrimaud/generator-jhipster
+  - cd generator-jhipster/
+  - npm install
   - docker version
-  # - docker pull jdubois/jhipster-docker
-  - docker build -t pgr/jhipster-docker .
-  - docker run -d -w /home/jhipster/sample-app/ -v $TRAVIS_BUILD_DIR/sample-app/:/home/jhipster/sample-app/ --name=jhipster pgr/jhipster-docker yo jhipster --inforce --no-insight ; sleep 120
+  # - docker pull mysql
+  # - docker pull postgres
+  # - docker pull mongo
+  # - docker pull cassandra
 script:
-  - docker logs jhipster
-  - ls -al
-  - echo $TRAVIS_BUILD_DIR
-  - ls -al $TRAVIS_BUILD_DIR/sample-app/
-  
+  - java -version
+  - git --version
+  - yo --version
+  - mvn -v
+  - node -v
+  - npm -v
+  - bower -v
+  - grunt --version
+  - gulp -v
+  - grunt --version
+  #------------------
+  #--- sample-app ---
+  #------------------
+  - cd $TRAVIS_BUILD_DIR/sample-app/
+  - yo jhipster --inforce --no-insight
+  - mvn spring-boot:run & ; sleep 120
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp
