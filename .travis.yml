@@ -5,12 +5,11 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
-  # - docker version
-  # - docker build -t pgr/jhipster .
-  # - docker run -d -w /home/jhipster/sample-app/ --name=jhipster pgr/jhipster yo jhipster --inforce --no-insight ; sleep 120
-  # - docker run -d -u jhipster -w /home/jhipster/sample-app/ -v /home/pgrimaud/pgr/integ/sample-app/:/home/jhipster/sample-app/ --name=jhipster jdubois/jhipster-docker yo jhipster --inforce --no-insight
+  - docker version
+  - docker pull jdubois/jhipster-docker
+  - docker run -d -u jhipster -w /home/jhipster/sample-app/ -v $TRAVIS_BUILD_DIR/sample-app/:/home/jhipster/sample-app/ --name=jhipster jdubois/jhipster-docker yo jhipster --inforce --no-insight
 script:
-  # - docker logs jhipster
+  - docker logs jhipster
   - ls -al
   - echo $TRAVIS_BUILD_DIR
   - ls -al $TRAVIS_BUILD_DIR/sample-app/
