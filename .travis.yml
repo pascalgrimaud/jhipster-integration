@@ -8,7 +8,7 @@ install:
   - docker version
   # - docker pull jdubois/jhipster-docker
   - docker build -t pgr/jhipster-docker .
-  - docker run -d -u jhipster -w /home/jhipster/sample-app/ -v $TRAVIS_BUILD_DIR/sample-app/:/home/jhipster/sample-app/ --name=jhipster pgr/jhipster-docker yo jhipster --inforce --no-insight ; sleep 120
+  - docker run -d -w /home/jhipster/sample-app/ -v $TRAVIS_BUILD_DIR/sample-app/:/home/jhipster/sample-app/ --name=jhipster pgr/jhipster-docker yo jhipster --inforce --no-insight ; sleep 120
 script:
   - docker logs jhipster
   - ls -al
