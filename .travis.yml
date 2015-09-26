@@ -6,13 +6,10 @@ before_install:
   - jdk_switcher use oraclejdk8
 install:
   - docker version
-  # - docker build -t pgr/jhipster .
-  # - docker run -d -u jhipster -w /home/jhipster/sample-app/ pgr/jhipster yo jhipster --inforce --no-insight ; sleep 120
+  - docker build -t pgr/jhipster .
+  - docker run -d -w /home/jhipster/sample-app/ --name=jhipster pgr/jhipster yo jhipster --inforce --no-insight ; sleep 120
 script:
-  - pwd
-  - echo `pwd`
-  - echo $HOME
-  - cd `pwd`/sample-app/
+  - docker logs jhipster
   - ls -l
-  - cd $HOME/sample-app/
+  - cd sample-app/
   - ls -l
