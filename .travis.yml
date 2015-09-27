@@ -9,7 +9,7 @@ before_install:
 install:
   - git clone https://github.com/jhipster/jhipster-sample-app.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gradle.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
+  - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gulp.git
   - git clone https://github.com/jhipster/jhipster-sample-app-mongodb.git
   - git clone https://github.com/jhipster/jhipster-sample-app-cassandra.git
@@ -27,6 +27,9 @@ install:
   - docker pull cassandra
   - docker build -t jhipster-cassandra .
   - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn install
+  - jdk_switcher use oraclejdk7
+  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/ && mvn install
+  - jdk_switcher use oraclejdk8
   - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/ && mvn install
   - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn install
 script:
@@ -38,6 +41,16 @@ script:
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp ; sleep 10
+  #---------------------------------------------
+  # jhipster-sample-app-java7
+  #---------------------------------------------
+  - jdk_switcher use oraclejdk7
+  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/
+  - mvn spring-boot:run &
+  - sleep 120
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp ; sleep 10
+  - jdk_switcher use oraclejdk8
   #---------------------------------------------
   # jhipster-sample-app-mongodb
   #---------------------------------------------
