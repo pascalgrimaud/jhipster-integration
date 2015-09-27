@@ -26,6 +26,7 @@ install:
   # - git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-token.git
 script:
+  - echo "Hello"
   - docker version
   #------------------
   #--- sample-app ---
