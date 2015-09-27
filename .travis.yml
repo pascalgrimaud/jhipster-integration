@@ -46,19 +46,19 @@ script:
   # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   # - fuser -k 8080/tcp
   # - sleep 10
-    #----------------------------
-    #--- sample-app-cassandra ---
-    #----------------------------
-    - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/
-    - docker run -d --name=cassandra -p 9042:9042 cassandra
-    - sleep 10
-    - cat src/main/resources/config/cql/create-keyspace.cql > create-keyspace-tables.cql
-    - echo "USE sampleCassandra;" >> create-keyspace-tables.cql
-    - cat src/main/resources/config/cql/create-tables.cql >> create-keyspace-tables.cql
-    - docker cp create-keyspace-tables.cql cassandra:/create-keyspace-tables.cql
-    - docker exec -it cassandra cqlsh -f create-keyspace-tables.cql
-    - mvn spring-boot:run &
-    - sleep 60
-    - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-    - fuser -k 8080/tcp
-    - sleep 10
+  #----------------------------
+  #--- sample-app-cassandra ---
+  #----------------------------
+  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/
+  - docker run -d --name=cassandra -p 9042:9042 cassandra
+  - sleep 10
+  - cat src/main/resources/config/cql/create-keyspace.cql > create-keyspace-tables.cql
+  - echo "USE sampleCassandra;" >> create-keyspace-tables.cql
+  - cat src/main/resources/config/cql/create-tables.cql >> create-keyspace-tables.cql
+  - docker cp create-keyspace-tables.cql cassandra:/create-keyspace-tables.cql
+  - docker exec -it cassandra cqlsh -f create-keyspace-tables.cql
+  - mvn spring-boot:run &
+  - sleep 60
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp
+  - sleep 10
