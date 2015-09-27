@@ -60,7 +60,7 @@ script:
   # - docker cp $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/create-keyspace-tables.cql cassandra:/
   # - docker exec -it cassandra init
   # - docker ps
-  - docker exec -it cassandra cqlsh -f /create-keyspace-tables.cql
+  - docker exec -u root -it cassandra cqlsh -f /create-keyspace-tables.cql
   - docker ps
   - docker logs cassandra
   - mvn spring-boot:run &
