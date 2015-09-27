@@ -11,7 +11,8 @@ install:
   # - docker pull postgres
   # - docker pull mongo
   - docker pull cassandra
-  - git clone https://github.com/jhipster/jhipster-sample-app.git
+  - docker build -t jhipster-cassandra .
+  # - git clone https://github.com/jhipster/jhipster-sample-app.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gradle.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gulp.git
@@ -29,12 +30,12 @@ script:
   #------------------
   #--- sample-app ---
   #------------------
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/
-  - mvn spring-boot:run &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp
-  - sleep 10
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/
+  # - mvn spring-boot:run &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp
+  # - sleep 10
   #--------------------------
   #--- sample-app-mongodb ---
   #--------------------------
@@ -50,14 +51,15 @@ script:
   #--- sample-app-cassandra ---
   #----------------------------
   - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/
-  - docker run -d --name=cassandra -p 9042:9042 cassandra
+  - docker run -d --name=cassandra -p 9042:9042 jhipster-cassandra
   - sleep 10
-  - cat src/main/resources/config/cql/create-keyspace.cql > create-keyspace-tables.cql
-  - echo "USE sampleCassandra;" >> create-keyspace-tables.cql
-  - cat src/main/resources/config/cql/create-tables.cql >> create-keyspace-tables.cql
-  - ls -al
-  - docker cp $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/create-keyspace-tables.cql cassandra:/
-  - docker exec -it cassandra cqlsh -f create-keyspace-tables.cql
+  # - cat src/main/resources/config/cql/create-keyspace.cql > create-keyspace-tables.cql
+  # - echo "USE sampleCassandra;" >> create-keyspace-tables.cql
+  # - cat src/main/resources/config/cql/create-tables.cql >> create-keyspace-tables.cql
+  # - ls -al
+  # - docker cp $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/create-keyspace-tables.cql cassandra:/
+  - docker exec -it cassandra init
+  - docker logs cassandra
   - mvn spring-boot:run &
   - sleep 60
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"

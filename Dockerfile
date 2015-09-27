@@ -1,13 +1,16 @@
-FROM jdubois/jhipster-docker
+FROM cassandra
 MAINTAINER Pascal Grimaud <pascalgrimaud@gmail.com>
 
-ADD sample-app/ /home/jhipster/sample-app/
-ADD sample-app-mysql/ /home/jhipster/sample-mysql/
-ADD sample-app-postgresql /home/jhipster/sample-postgresql/
-ADD sample-app-mongodb/ /home/jhipster/sample-mongodb/
-ADD sample-app-cassandra/ /home/jhipster/sample-cassandra/
+# add script cql
+ADD src/main/resources/config/cql/create-keyspace.cql /create-keyspace.cql
+ADD src/main/resources/config/cql/create-tables.cql /create-tables.cql
 
-RUN chown -R jhipster:jhipster /home/jhipster
+# concat 2 scripts to 1
+RUN cat create-keyspace.cql > create-keyspace-tables.cql
+RUN echo "USE sampleCassandra;" >> create-keyspace-tables.cql
+RUN cat create-tables.cql >> create-keyspace-tables.cql
 
-RUN mkdir -p /root/.config/configstore
-RUN chmod g+rwx /root /root/.config /root/.config/configstore
+# init, for easier docker exec
+RUN echo "#!/bin/bash" > /usr/local/bin/init
+RUN echo "cqlsh -f create-keyspace-tables.cql" >> /usr/local/bin/init
+RUN chmod 755 /usr/local/bin/init
