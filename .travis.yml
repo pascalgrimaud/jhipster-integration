@@ -51,14 +51,14 @@ script:
   #--- sample-app-cassandra ---
   #----------------------------
   - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/
-  - docker run -d --name=cassandra -p 9042:9042 jhipster-cassandra
-  - sleep 10
+  - docker run -d --name=cassandra -p 9042:9042 jhipster-cassandra ; sleep 20
   # - cat src/main/resources/config/cql/create-keyspace.cql > create-keyspace-tables.cql
   # - echo "USE sampleCassandra;" >> create-keyspace-tables.cql
   # - cat src/main/resources/config/cql/create-tables.cql >> create-keyspace-tables.cql
   # - ls -al
   # - docker cp $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/create-keyspace-tables.cql cassandra:/
   - docker exec -it cassandra init
+  - docker exec -it cassandra cqlsh -f /create-keyspace-tables.cql
   - docker logs cassandra
   - mvn spring-boot:run &
   - sleep 60
