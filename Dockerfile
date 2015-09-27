@@ -2,8 +2,8 @@ FROM cassandra
 MAINTAINER Pascal Grimaud <pascalgrimaud@gmail.com>
 
 # add script cql
-ADD src/main/resources/config/cql/create-keyspace.cql /create-keyspace.cql
-ADD src/main/resources/config/cql/create-tables.cql /create-tables.cql
+ADD jhipster-sample-app-cassandra/src/main/resources/config/cql/create-keyspace.cql /create-keyspace.cql
+ADD jhipster-sample-app-cassandra/src/main/resources/config/cql/create-tables.cql /create-tables.cql
 
 # concat 2 scripts to 1
 RUN cat create-keyspace.cql > create-keyspace-tables.cql
