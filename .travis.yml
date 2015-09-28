@@ -31,7 +31,7 @@ install:
   # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/ && mvn install
   # - jdk_switcher use oraclejdk8
   # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/ && mvn install
-  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn install
+  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn dependency:go-offline
 script:
   #---------------------------------------------
   # jhipster-sample-app
