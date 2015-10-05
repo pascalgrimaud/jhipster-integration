@@ -55,7 +55,7 @@ jdk:
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - ls -al
-  - yo jhipster --force
+  - yo jhipster --force --no-insight
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 10
   - mvn -Pprod &
