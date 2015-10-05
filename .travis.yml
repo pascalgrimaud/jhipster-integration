@@ -39,13 +39,18 @@ install:
   # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/ && mvn dependency:go-offline
   # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn dependency:go-offline
 env:
+  matrix:
   - REP=jhipster-sample-app
   - REP=jhipster-sample-app-mongodb
+  matrix:
+  - PROFIL=dev
+  - PROFIL=prod
 jdk:
   - oraclejdk8
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - ls -al
+  - echo $REP ----> $PROFIL
   #---------------------------------------------
   # jhipster-sample-app
   #---------------------------------------------
