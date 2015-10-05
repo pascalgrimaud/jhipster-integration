@@ -3,6 +3,7 @@ os:
 sudo: required
 services:
   - docker
+language: java
 before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
@@ -40,6 +41,8 @@ install:
 env:
   - REP=jhipster-sample-app
   - REP=jhipster-sample-app-mongodb
+jdk:
+  - oraclejdk8
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - ls -al
