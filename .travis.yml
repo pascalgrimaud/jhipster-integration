@@ -7,12 +7,17 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
-  - git clone https://github.com/jhipster/jhipster-sample-app.git
+  - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - mv docker-compose /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
+  - docker version
+  - docker-compose version
+  # - git clone https://github.com/jhipster/jhipster-sample-app.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gradle.git
-  - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
+  # - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gulp.git
-  - git clone https://github.com/jhipster/jhipster-sample-app-mongodb.git
-  - git clone https://github.com/jhipster/jhipster-sample-app-cassandra.git
+  # - git clone https://github.com/jhipster/jhipster-sample-app-mongodb.git
+  # - git clone https://github.com/jhipster/jhipster-sample-app-cassandra.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-dto.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-elasticsearch.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-hazelcast.git
@@ -23,50 +28,50 @@ install:
   # - git clone https://github.com/jhipster/jhipster-sample-app-token.git
   # - docker pull mysql
   # - docker pull postgres
-  - docker pull mongo
-  - docker pull cassandra
-  - docker build -t jhipster-cassandra .
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
-  - jdk_switcher use oraclejdk7
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/ && mvn dependency:go-offline
-  - jdk_switcher use oraclejdk8
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/ && mvn dependency:go-offline
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn dependency:go-offline
+  # - docker pull mongo
+  # - docker pull cassandra
+  # - docker build -t jhipster-cassandra .
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
+  # - jdk_switcher use oraclejdk7
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/ && mvn dependency:go-offline
+  # - jdk_switcher use oraclejdk8
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/ && mvn dependency:go-offline
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn dependency:go-offline
 script:
   #---------------------------------------------
   # jhipster-sample-app
   #---------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/
-  - mvn spring-boot:run &
-  - sleep 60
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/
+  # - mvn spring-boot:run &
+  # - sleep 60
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
   #---------------------------------------------
   # jhipster-sample-app-java7
   #---------------------------------------------
-  - jdk_switcher use oraclejdk7
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/
-  - mvn spring-boot:run &
-  - sleep 60
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
-  - jdk_switcher use oraclejdk8
+  # - jdk_switcher use oraclejdk7
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/
+  # - mvn spring-boot:run &
+  # - sleep 60
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
+  # - jdk_switcher use oraclejdk8
   #---------------------------------------------
   # jhipster-sample-app-mongodb
   #---------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/
-  - docker run -d -p 27017:27017 mongo ; sleep 10
-  - mvn spring-boot:run &
-  - sleep 60
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/
+  # - docker run -d -p 27017:27017 mongo ; sleep 10
+  # - mvn spring-boot:run &
+  # - sleep 60
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
   #---------------------------------------------
   # jhipster-sample-app-cassandra
   #---------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/
-  - docker run --privileged -d --name=cassandra -p 9042:9042 jhipster-cassandra ; sleep 20
-  - docker exec -it cassandra cqlsh -f /create-keyspace-tables.cql
-  - mvn spring-boot:run &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/
+  # - docker run --privileged -d --name=cassandra -p 9042:9042 jhipster-cassandra ; sleep 20
+  # - docker exec -it cassandra cqlsh -f /create-keyspace-tables.cql
+  # - mvn spring-boot:run &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
