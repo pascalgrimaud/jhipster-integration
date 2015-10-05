@@ -8,16 +8,24 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
+  # install docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
   - sudo mv docker-compose /usr/local/bin/docker-compose
   - sudo chmod +x /usr/local/bin/docker-compose
+  # install the full stack for JHipster
+  - npm install -g yo
+  - npm install -g bower
+  - npm install -g grunt-cli
+  - npm install -g gulp
+  - npm install -g generator-jhipster@2.21.1
+  # check version
   - docker version
   - docker-compose version
-  - git clone https://github.com/jhipster/jhipster-sample-app.git
+  # - git clone https://github.com/jhipster/jhipster-sample-app.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gradle.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-gulp.git
-  - git clone https://github.com/jhipster/jhipster-sample-app-mongodb.git
+  # - git clone https://github.com/jhipster/jhipster-sample-app-mongodb.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-cassandra.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-dto.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-elasticsearch.git
@@ -40,17 +48,20 @@ install:
   # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn dependency:go-offline
 env:
   matrix:
-  - REP=jhipster-sample-app
-  - REP=jhipster-sample-app-mongodb
-  matrix:
-  - PROFIL=dev
-  - PROFIL=prod
+  - REP=sample-app
+  - REP=sample-app-mongodb
 jdk:
   - oraclejdk8
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - ls -al
-  - echo $REP ----> $PROFIL
+  - yo jhipster --force
+  - docker-compose -f docker-compose-prod.yml up -d
+  - sleep 10
+  - mvn -Pprod &
+  - sleep 120
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp ; sleep 10
   #---------------------------------------------
   # jhipster-sample-app
   #---------------------------------------------
