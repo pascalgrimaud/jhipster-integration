@@ -66,7 +66,7 @@ script:
   # - yo jhipster --force --no-insight
   - ls -al
   # start docker container => can use the same for development and production profile
-  - echo   privileged: true >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml
+  - echo "  privileged\: true" >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml
   - cat docker-compose-prod.yml
   # - docker-compose -f docker-compose-prod.yml up -d
   # - docker run --privileged -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=sampleapplication mysql mysqld --lower_case_table_name=1
