@@ -66,7 +66,8 @@ script:
   # - yo jhipster --force --no-insight
   - ls -al
   # start docker container => can use the same for development and production profile
-  - docker-compose -f docker-compose-prod.yml up -d
+  # - docker-compose -f docker-compose-prod.yml up -d
+  - docker run -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=sampleapplication mysql mysqld --lower_case_table_name=1
   - sleep 10
   - mvn -Pprod &
   - sleep 300
