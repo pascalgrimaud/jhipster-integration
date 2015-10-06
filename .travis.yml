@@ -64,10 +64,15 @@ script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - yo jhipster --force --no-insight
   - ls -al
-  - if [ $REP == 'sample-app-mongodb' ]; then docker-compose -f docker-compose-prod.yml up -d; fi
+  - if [ $REP == 'sample-app-postgresql' ]; then docker-compose up -d; fi  
+  - if [ $REP == 'sample-app-mongodb' ]; then docker-compose up -d; fi
   - sleep 10
   - mvn &
   - sleep 120
+  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  - fuser -k 8080/tcp ; sleep 10
+  - mvn -Pprod
+  - sleep 60
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp ; sleep 10
   #---------------------------------------------
