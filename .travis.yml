@@ -11,11 +11,11 @@ install:
   #--------------------------------------------------
   # install the full stack for JHipster
   #--------------------------------------------------
-  - npm install -g yo
-  - npm install -g bower
-  - npm install -g grunt-cli
-  - npm install -g gulp
-  - npm install -g generator-jhipster@2.22.0
+  # - npm install -g yo
+  # - npm install -g bower
+  # - npm install -g grunt-cli
+  # - npm install -g gulp
+  # - npm install -g generator-jhipster@2.22.0
   # - git clone https://github.com/jhipster/generator-jhipster.git
   # - cd $TRAVIS_BUILD_DIR/generator-jhipster
   # - npm link
@@ -41,18 +41,18 @@ install:
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
-  - java -version
-  - git --version
-  - yo --version
-  - mvn -v
-  - node -v
-  - npm -v
-  - bower -v
-  - grunt --version
-  - gulp -v
-  - grunt --version
-  - docker version
-  - docker-compose version
+  # - java -version
+  # - git --version
+  # - yo --version
+  # - mvn -v
+  # - node -v
+  # - npm -v
+  # - bower -v
+  # - grunt --version
+  # - gulp -v
+  # - grunt --version
+  # - docker version
+  # - docker-compose version
 env:
   matrix:
   - REP=jhipster-sample-app
@@ -66,8 +66,9 @@ script:
   # - yo jhipster --force --no-insight
   - ls -al
   # start docker container => can use the same for development and production profile
-  # - docker-compose -f docker-compose-prod.yml up -d
-  - docker run --privileged -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=sampleapplication mysql mysqld --lower_case_table_name=1
+  - echo "  privileged: true" >> docker-compose-prod.yml
+  - docker-compose -f docker-compose-prod.yml up -d
+  # - docker run --privileged -d -p 3306:3306 -e MYSQL_USER=root -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=sampleapplication mysql mysqld --lower_case_table_name=1
   - sleep 10
   - mvn -Pprod &
   - sleep 300
