@@ -18,6 +18,10 @@ install:
   - npm install -g grunt-cli
   - npm install -g gulp
   - npm install -g generator-jhipster@2.21.1
+  - docker pull mysql
+  # - docker pull postgres
+  - docker pull mongo
+  # - docker pull cassandra
   # check version
   - docker version
   - docker-compose version
@@ -35,10 +39,6 @@ install:
   # - git clone https://github.com/jhipster/jhipster-sample-app-websocket.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git
   # - git clone https://github.com/jhipster/jhipster-sample-app-token.git
-  # - docker pull mysql
-  # - docker pull postgres
-  # - docker pull mongo
-  # - docker pull cassandra
   # - docker build -t jhipster-cassandra .
   # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
   # - jdk_switcher use oraclejdk7
@@ -56,6 +56,7 @@ script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - ls -al
   - yo jhipster --force --no-insight
+  - ls -al
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 10
   - mvn -Pprod &
