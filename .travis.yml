@@ -36,7 +36,7 @@ install:
   # clone and get dependency offline
   #--------------------------------------------------
   - git clone https://github.com/jhipster/jhipster-sample-app.git
-  - cd $TRAVIS_BUILD_DIR/sample-app/ && mvn dependency:go-offline
+  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
