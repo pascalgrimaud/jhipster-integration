@@ -29,15 +29,15 @@ install:
   # download docker images
   #--------------------------------------------------
   - docker pull mysql
-  - docker pull postgres
-  - docker pull mongo
-  - docker pull cassandra
+  # - docker pull postgres
+  # - docker pull mongo
+  # - docker pull cassandra
   #--------------------------------------------------
   # clone and get dependency offline
   #--------------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/
-  - git clone https://github.com/jhipster/jhipster-sample-app.git
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
+  # - cd $TRAVIS_BUILD_DIR/
+  # - git clone https://github.com/jhipster/jhipster-sample-app.git
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
@@ -67,12 +67,8 @@ script:
   # start docker container => can use the same for development and production profile
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 10
-  - mvn &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
   - mvn -Pprod &
-  - sleep 120
+  - sleep 180
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp ; sleep 10
   # - mvn -Pprod
