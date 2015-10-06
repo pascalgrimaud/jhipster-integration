@@ -72,8 +72,8 @@ script:
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp ; sleep 10
-  - if [ $REP == 'sample-app-postgresql' ]; then docker stop $(docker ps -q); fi
-  - if [ $REP == 'sample-app-mongodb' ]; then docker stop $(docker ps -q); fi
+  - if [ $REP == 'sample-app-postgresql' ]; then docker-compose stop; fi
+  - if [ $REP == 'sample-app-mongodb' ]; then docker-compose stop; fi
   - sleep 5
   # try start in production profile
   - docker-compose -f docker-compose-prod.yml up -d
