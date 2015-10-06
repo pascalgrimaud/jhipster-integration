@@ -72,11 +72,11 @@ script:
   - ls -al
   # start docker container => can use the same for development and production profile
   - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
-  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
+  - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 10
-  - if [ $REP == "sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
-  - if [ $REP == "sample-app-cassandra" ]; then docker logs sampleCassandra-prod-cassandra; fi
+  - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
+  - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker logs sampleCassandra-prod-cassandra; fi
   # - mvn &
   # - sleep 120
   # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
