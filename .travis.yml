@@ -6,22 +6,23 @@ services:
 language: java
 before_install:
   - sudo service docker restart ; sleep 10
+  - sudo /etc/init.d/postgresql stop
   - jdk_switcher use oraclejdk8
 install:
   #--------------------------------------------------
   # install the full stack for JHipster
   #--------------------------------------------------
-  - npm install -g yo
-  - npm install -g bower
-  - npm install -g grunt-cli
-  - npm install -g gulp
-  - npm install -g generator-jhipster@2.22.0
+  # - npm install -g yo
+  # - npm install -g bower
+  # - npm install -g grunt-cli
+  # - npm install -g gulp
+  # - npm install -g generator-jhipster@2.22.0
   #--------------------------------------------------
   # use last version of jhispter -> snapshot
   #--------------------------------------------------
-  - git clone https://github.com/jhipster/generator-jhipster.git
-  - cd $TRAVIS_BUILD_DIR/generator-jhipster
-  - npm link
+  # - git clone https://github.com/jhipster/generator-jhipster.git
+  # - cd $TRAVIS_BUILD_DIR/generator-jhipster
+  # - npm link
   #--------------------------------------------------
   # install docker-compose
   #--------------------------------------------------
@@ -31,57 +32,58 @@ install:
   #--------------------------------------------------
   # download docker images
   #--------------------------------------------------
-  - docker pull mysql
-  - docker pull postgres
-  - docker pull mongo
+  # - docker pull mysql
+  # - docker pull postgres
+  # - docker pull mongo
   - docker pull cassandra
   #--------------------------------------------------
   # clone and get dependency offline
   #--------------------------------------------------
   - cd $TRAVIS_BUILD_DIR/
-  - git clone https://github.com/jhipster/jhipster-sample-app.git
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
+  - git clone https://github.com/jhipster/jhipster-sample-app-cassandra.git
+  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
-  - java -version
-  - git --version
-  - yo --version
-  - mvn -v
-  - node -v
-  - npm -v
-  - bower -v
-  - grunt --version
-  - gulp -v
-  - grunt --version
+  # - java -version
+  # - git --version
+  # - yo --version
+  # - mvn -v
+  # - node -v
+  # - npm -v
+  # - bower -v
+  # - grunt --version
+  # - gulp -v
+  # - grunt --version
   - docker version
   - docker-compose version
 env:
   matrix:
-  - REP=sample-app
-  - REP=sample-app-postgresql
-  - REP=sample-app-mongodb
-  - REP=sample-app-cassandra
+  # - REP=sample-app
+  # - REP=sample-app-postgresql
+  # - REP=sample-app-mongodb
+  # - REP=sample-app-cassandra
+  - REP=jhipster-sample-app-cassandra
 jdk:
   - oraclejdk8
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
-  - yo jhipster --force --no-insight
+  # - yo jhipster --force --no-insight
   - ls -al
   # start docker container => can use the same for development and production profile
   - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
-  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod build; fi
+  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 10
   - if [ $REP == "sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
-  - mvn &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
-  - mvn -Pprod &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  # - mvn &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
+  # - mvn -Pprod &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
   #---------------------------------------------
   # jhipster-sample-app
   #---------------------------------------------
