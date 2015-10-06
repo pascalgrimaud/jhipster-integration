@@ -36,8 +36,8 @@ install:
   # clone and get dependency offline
   #--------------------------------------------------
   # - cd $TRAVIS_BUILD_DIR/
-  # - git clone https://github.com/jhipster/jhipster-sample-app.git
-  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
+  - git clone https://github.com/jhipster/jhipster-sample-app.git
+  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
@@ -55,14 +55,15 @@ install:
   - docker-compose version
 env:
   matrix:
-  - REP=sample-app
+  - REP=jhipster-sample-app
+  # - REP=sample-app
   # - REP=sample-app-postgresql
   # - REP=sample-app-mongodb
 jdk:
   - oraclejdk8
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
-  - yo jhipster --force --no-insight
+  # - yo jhipster --force --no-insight
   - ls -al
   # start docker container => can use the same for development and production profile
   - docker-compose -f docker-compose-prod.yml up -d
