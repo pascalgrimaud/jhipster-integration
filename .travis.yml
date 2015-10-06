@@ -34,7 +34,7 @@ install:
   - docker pull mysql
   - docker pull postgres
   - docker pull mongo
-  # - docker pull cassandra
+  - docker pull cassandra
   #--------------------------------------------------
   # clone and get dependency offline
   #--------------------------------------------------
@@ -61,6 +61,7 @@ env:
   - REP=sample-app
   - REP=sample-app-postgresql
   - REP=sample-app-mongodb
+  - REP=sample-app-cassandra
 jdk:
   - oraclejdk8
 script:
@@ -69,13 +70,15 @@ script:
   - ls -al
   # start docker container => can use the same for development and production profile
   - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
+  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod build; fi
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 10
+  - if [ $REP == "sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
   - mvn &
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp ; sleep 10
-  - mvn -Pprod
+  - mvn -Pprod &
   - sleep 120
   - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
   - fuser -k 8080/tcp ; sleep 10
