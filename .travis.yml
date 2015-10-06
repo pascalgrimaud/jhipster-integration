@@ -74,7 +74,8 @@ script:
   - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
   - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
   - docker-compose -f docker-compose-prod.yml up -d
-  - sleep 10
+  - sleep 20
+  - docker ps -a
   - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
   - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker logs sampleCassandra-prod-cassandra; fi
   # - mvn &
