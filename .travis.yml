@@ -18,6 +18,9 @@ install:
   - npm install -g grunt-cli
   - npm install -g gulp
   - npm install -g generator-jhipster@2.21.1
+  - git clone https://github.com/jhipster/generator-jhipster.git
+  - cd generator-jhipster
+  - npm link
   # download docker images
   - docker pull mysql
   # - docker pull postgres
