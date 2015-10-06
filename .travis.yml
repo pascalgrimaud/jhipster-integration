@@ -8,57 +8,59 @@ before_install:
   - sudo service docker restart ; sleep 10
   - jdk_switcher use oraclejdk8
 install:
-  # install docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - sudo mv docker-compose /usr/local/bin/docker-compose
-  - sudo chmod +x /usr/local/bin/docker-compose
+  #--------------------------------------------------
   # install the full stack for JHipster
+  #--------------------------------------------------
   - npm install -g yo
   - npm install -g bower
   - npm install -g grunt-cli
   - npm install -g gulp
   - npm install -g generator-jhipster@2.21.1
   - git clone https://github.com/jhipster/generator-jhipster.git
-  - cd generator-jhipster
+  - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
+  #--------------------------------------------------
+  # install docker-compose
+  #--------------------------------------------------
+  - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - sudo mv docker-compose /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+  #--------------------------------------------------
   # download docker images
+  #--------------------------------------------------
   - docker pull mysql
-  # - docker pull postgres
+  - docker pull postgres
   - docker pull mongo
-  # - docker pull cassandra
+  - docker pull cassandra
+  #--------------------------------------------------
+  # clone and get dependency offline
+  #--------------------------------------------------
+  - git clone https://github.com/jhipster/jhipster-sample-app.git
+  - cd $TRAVIS_BUILD_DIR/sample-app/ && mvn dependency:go-offline
+  #--------------------------------------------------
   # check version
+  #--------------------------------------------------
+  - java -version
+  - git --version
+  - yo --version
+  - mvn -v
+  - node -v
+  - npm -v
+  - bower -v
+  - grunt --version
+  - gulp -v
+  - grunt --version
   - docker version
   - docker-compose version
-  # - git clone https://github.com/jhipster/jhipster-sample-app.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-gradle.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-java7.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-gulp.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-mongodb.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-cassandra.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-dto.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-elasticsearch.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-hazelcast.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-nocache.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-noi18n.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-websocket.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-oauth2.git
-  # - git clone https://github.com/jhipster/jhipster-sample-app-token.git
-  # - docker build -t jhipster-cassandra .
-  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
-  # - jdk_switcher use oraclejdk7
-  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-java7/ && mvn dependency:go-offline
-  # - jdk_switcher use oraclejdk8
-  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-mongodb/ && mvn dependency:go-offline
-  # - cd $TRAVIS_BUILD_DIR/jhipster-sample-app-cassandra/ && mvn dependency:go-offline
 env:
   matrix:
   - REP=sample-app
+  - REP=sample-app-postgresql
   - REP=sample-app-mongodb
 jdk:
   - oraclejdk8
 script:
   - cd $TRAVIS_BUILD_DIR/$REP
-  - ls -al
   - yo jhipster --force --no-insight
   - ls -al
   - docker-compose -f docker-compose-prod.yml up -d
