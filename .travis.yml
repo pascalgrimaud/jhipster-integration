@@ -64,7 +64,7 @@ script:
   - cd $TRAVIS_BUILD_DIR/$REP
   - yo jhipster --force --no-insight
   - ls -al
-  - if [ $REP == 'sample-app-mongodb' ]; docker-compose -f docker-compose-prod.yml up -d; fi
+  - if [ $REP == 'sample-app-mongodb' ]; then docker-compose -f docker-compose-prod.yml up -d; fi
   - sleep 10
   - mvn &
   - sleep 120
