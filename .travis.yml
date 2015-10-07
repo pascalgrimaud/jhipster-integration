@@ -79,10 +79,10 @@ script:
   #--------------------------------------------------
   # start docker container => can use the same for development and production profile
   #--------------------------------------------------
-  - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
+  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 20
-  - if [ $REP == "jhipster-sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
+  - if [ $REP == "sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
   #--------------------------------------------------
   # start in development profile
   #--------------------------------------------------
