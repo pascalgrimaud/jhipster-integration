@@ -36,6 +36,7 @@ install:
   - docker pull postgres
   - docker pull mongo
   - docker pull cassandra
+  - docker pull elasticsearch
   #--------------------------------------------------
   # clone and get dependency offline
   #--------------------------------------------------
@@ -63,6 +64,7 @@ env:
   - REP=sample-app-postgresql
   - REP=sample-app-mongodb
   - REP=sample-app-cassandra
+  - REP=sample-app-elasticsearch
 jdk:
   - oraclejdk8
 script:
