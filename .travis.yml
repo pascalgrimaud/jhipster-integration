@@ -18,9 +18,9 @@ install:
   - npm install -g gulp
   - npm install -g generator-jhipster@2.22.0
   #--------------------------------------------------
-  # use last version of jhispter -> snapshot
+  # use a snapshot version of jhispter
   #--------------------------------------------------
-  - git clone https://github.com/jhipster/generator-jhipster.git
+  - git clone -b postgresql-use-spring-datasource-url https://github.com/pascalgrimaud/generator-jhipster.git
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
   #--------------------------------------------------
