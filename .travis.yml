@@ -9,28 +9,9 @@ before_install:
   - sudo /etc/init.d/postgresql stop
   - jdk_switcher use oraclejdk8
 install:
-  #--------------------------------------------------
-  # install docker-compose
-  #--------------------------------------------------
-  - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - sudo mv docker-compose /usr/local/bin/docker-compose
-  - sudo chmod +x /usr/local/bin/docker-compose
-  #--------------------------------------------------
-  # download docker images
-  #--------------------------------------------------
-  - docker pull mysql
-  - docker pull postgres
-  - docker pull mongo
-  - docker pull cassandra
-  - docker pull elasticsearch
-  #--------------------------------------------------
-  # install the full stack for JHipster
-  #--------------------------------------------------
-  - npm install -g yo
-  - npm install -g bower
-  - npm install -g grunt-cli
-  - npm install -g gulp
-  - npm install -g generator-jhipster@2.22.0
+  - $TRAVIS_BUILD_DIR/install/01-install-docker-compose.sh
+  - $TRAVIS_BUILD_DIR/install/02-docker-pull.sh
+  - $TRAVIS_BUILD_DIR/install/03-install-jhipster-stack.sh
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
@@ -60,12 +41,12 @@ install:
   - docker-compose version
 env:
   matrix:
-  - JHIPSTER=sample-app
-  - JHIPSTER=sample-app-postgresql
-  - JHIPSTER=sample-app-mongodb
-  - JHIPSTER=sample-app-cassandra
-  - JHIPSTER=sample-app-elasticsearch
-  - JHIPSTER=sample-app-gradle
+  - JHIPSTER=samples/sample-app
+  - JHIPSTER=samples/sample-app-postgresql
+  - JHIPSTER=samples/sample-app-mongodb
+  - JHIPSTER=samples/sample-app-cassandra
+  - JHIPSTER=samples/sample-app-elasticsearch
+  - JHIPSTER=samples/sample-app-gradle
 jdk:
   - oraclejdk8
 script:
