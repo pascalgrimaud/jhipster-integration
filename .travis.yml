@@ -10,20 +10,6 @@ before_install:
   - jdk_switcher use oraclejdk8
 install:
   #--------------------------------------------------
-  # install the full stack for JHipster
-  #--------------------------------------------------
-  - npm install -g yo
-  - npm install -g bower
-  - npm install -g grunt-cli
-  - npm install -g gulp
-  - npm install -g generator-jhipster@2.22.0
-  #--------------------------------------------------
-  # use a snapshot version of jhispter
-  #--------------------------------------------------
-  - git clone -b postgresql-use-spring-datasource-url https://github.com/pascalgrimaud/generator-jhipster.git
-  - cd $TRAVIS_BUILD_DIR/generator-jhipster
-  - npm link
-  #--------------------------------------------------
   # install docker-compose
   #--------------------------------------------------
   - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -37,6 +23,20 @@ install:
   - docker pull mongo
   - docker pull cassandra
   - docker pull elasticsearch
+  #--------------------------------------------------
+  # install the full stack for JHipster
+  #--------------------------------------------------
+  - npm install -g yo
+  - npm install -g bower
+  - npm install -g grunt-cli
+  - npm install -g gulp
+  - npm install -g generator-jhipster@2.22.0
+  #--------------------------------------------------
+  # use a snapshot version of jhispter
+  #--------------------------------------------------
+  - git clone -b postgresql-use-spring-datasource-url https://github.com/pascalgrimaud/generator-jhipster.git
+  - cd $TRAVIS_BUILD_DIR/generator-jhipster
+  - npm link
   #--------------------------------------------------
   # clone and get dependency offline
   #--------------------------------------------------
