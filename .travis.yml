@@ -68,40 +68,21 @@ env:
 jdk:
   - oraclejdk8
 script:
-  #--------------------------------------------------
-  # generate the project
-  #--------------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/$REP
-  - yo jhipster --force --no-insight
-  #--------------------------------------------------
-  # generate the entities
-  #--------------------------------------------------
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-mongodb" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity BankAccount --force --no-insight; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity Label --force --no-insight; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity Operation --force --no-insight; fi
-  - ls -al
-  #--------------------------------------------------
-  # Travis-CI is not stable with docker...
-  # => so start container with privileged
-  # Travis-CI can't stop properly docker containers at the moment
-  # => can use the same for development and production profile
-  #--------------------------------------------------
-  - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
-  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
-  - docker-compose -f docker-compose-prod.yml up -d
-  - sleep 20
-  - if [ $REP == "sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
+  - ./scripts/01-generate-project.sh
+  - ./scripts/02-generate-entities.sh
+  - ls -al $TRAVIS_BUILD_DIR/$REP
+  - ./scripts/03-docker-compose.sh
   #--------------------------------------------------
   # start in development profile
   #--------------------------------------------------
-  - mvn &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  # - mvn &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
   #--------------------------------------------------
   # start in production profile
   #--------------------------------------------------
-  - mvn -Pprod &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  # - mvn -Pprod &
+  # - sleep 120
+  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
+  # - fuser -k 8080/tcp ; sleep 10
