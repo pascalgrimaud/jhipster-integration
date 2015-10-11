@@ -73,9 +73,9 @@ script:
   #--------------------------------------------------
   - cd $TRAVIS_BUILD_DIR/$REP
   - yo jhipster --force --no-insight
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-mongodb" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity BankAccount --force; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; yo jhipster:entity Label --force; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; yo jhipster:entity Operation --force; fi
+  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-mongodb" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity BankAccount --force --no-insight; fi
+  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; yo jhipster:entity Label --force --no-insight; fi
+  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; yo jhipster:entity Operation --force --no-insight; fi
   - ls -al
   #--------------------------------------------------
   # Travis-CI is not stable with docker... so start container with privileged
