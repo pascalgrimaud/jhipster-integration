@@ -72,17 +72,5 @@ script:
   - $TRAVIS_BUILD_DIR/scripts/02-generate-entities.sh
   - ls -al $TRAVIS_BUILD_DIR/$REP
   - $TRAVIS_BUILD_DIR/scripts/03-docker-compose.sh
-  #--------------------------------------------------
-  # start in development profile
-  #--------------------------------------------------
-  # - mvn &
-  # - sleep 120
-  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  # - fuser -k 8080/tcp ; sleep 10
-  #--------------------------------------------------
-  # start in production profile
-  #--------------------------------------------------
-  # - mvn -Pprod &
-  # - sleep 120
-  # - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  # - fuser -k 8080/tcp ; sleep 10
+  - $TRAVIS_BUILD_DIR/scripts/04-run-dev-profile.sh
+  - $TRAVIS_BUILD_DIR/scripts/05-run-prod-profile.sh
