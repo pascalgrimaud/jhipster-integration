@@ -60,17 +60,19 @@ install:
   - docker-compose version
 env:
   matrix:
-  - REP=sample-app
-  - REP=sample-app-postgresql
-  - REP=sample-app-mongodb
-  - REP=sample-app-cassandra
-  - REP=sample-app-elasticsearch
+  - JHIPSTER=sample-app
+  - JHIPSTER=sample-app-postgresql
+  - JHIPSTER=sample-app-mongodb
+  - JHIPSTER=sample-app-cassandra
+  - JHIPSTER=sample-app-elasticsearch
+  - JHIPSTER=sample-app-gradle
 jdk:
   - oraclejdk8
 script:
   - $TRAVIS_BUILD_DIR/scripts/01-generate-project.sh
   - $TRAVIS_BUILD_DIR/scripts/02-generate-entities.sh
-  - ls -al $TRAVIS_BUILD_DIR/$REP
+  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER
   - $TRAVIS_BUILD_DIR/scripts/03-docker-compose.sh
+  - docker ps -a
   - $TRAVIS_BUILD_DIR/scripts/04-run-dev-profile.sh
   - $TRAVIS_BUILD_DIR/scripts/05-run-prod-profile.sh
