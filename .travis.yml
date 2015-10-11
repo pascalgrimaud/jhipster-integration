@@ -68,10 +68,10 @@ env:
 jdk:
   - oraclejdk8
 script:
-  - $TRAVIS_BUILD_DIR/$REP/scripts/01-generate-project.sh
-  - $TRAVIS_BUILD_DIR/$REP/scripts/02-generate-entities.sh
+  - $TRAVIS_BUILD_DIR/scripts/01-generate-project.sh
+  - $TRAVIS_BUILD_DIR/scripts/02-generate-entities.sh
   - ls -al $TRAVIS_BUILD_DIR/$REP
-  - $TRAVIS_BUILD_DIR/$REP/scripts/03-docker-compose.sh
+  - $TRAVIS_BUILD_DIR/scripts/03-docker-compose.sh
   #--------------------------------------------------
   # start in development profile
   #--------------------------------------------------
