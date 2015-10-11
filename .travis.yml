@@ -9,34 +9,15 @@ before_install:
   - sudo /etc/init.d/postgresql stop
   - jdk_switcher use oraclejdk8
 install:
-  #--------------------------------------------------
-  # install the full stack for JHipster
-  #--------------------------------------------------
-  - npm install -g yo
-  - npm install -g bower
-  - npm install -g grunt-cli
-  - npm install -g gulp
-  - npm install -g generator-jhipster@2.22.0
+  - $TRAVIS_BUILD_DIR/install/01-install-docker-compose.sh
+  - $TRAVIS_BUILD_DIR/install/02-docker-pull.sh
+  - $TRAVIS_BUILD_DIR/install/03-install-jhipster-stack.sh
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
   - git clone -b postgresql-use-spring-datasource-url https://github.com/pascalgrimaud/generator-jhipster.git
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
-  #--------------------------------------------------
-  # install docker-compose
-  #--------------------------------------------------
-  - curl -L https://github.com/docker/compose/releases/download/1.4.2/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - sudo mv docker-compose /usr/local/bin/docker-compose
-  - sudo chmod +x /usr/local/bin/docker-compose
-  #--------------------------------------------------
-  # download docker images
-  #--------------------------------------------------
-  - docker pull mysql
-  - docker pull postgres
-  - docker pull mongo
-  - docker pull cassandra
-  - docker pull elasticsearch
   #--------------------------------------------------
   # clone and get dependency offline
   #--------------------------------------------------
@@ -60,48 +41,19 @@ install:
   - docker-compose version
 env:
   matrix:
-  - REP=sample-app
-  - REP=sample-app-postgresql
-  - REP=sample-app-mongodb
-  - REP=sample-app-cassandra
-  - REP=sample-app-elasticsearch
+  - JHIPSTER=samples/sample-app
+  - JHIPSTER=samples/sample-app-postgresql
+  - JHIPSTER=samples/sample-app-mongodb
+  - JHIPSTER=samples/sample-app-cassandra
+  - JHIPSTER=samples/sample-app-elasticsearch
+  - JHIPSTER=samples/sample-app-gradle
 jdk:
   - oraclejdk8
 script:
-  #--------------------------------------------------
-  # generate the project
-  #--------------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/$REP
-  - yo jhipster --force --no-insight
-  #--------------------------------------------------
-  # generate the entities
-  #--------------------------------------------------
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-mongodb" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity BankAccount --force --no-insight; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity Label --force --no-insight; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity Operation --force --no-insight; fi
-  - ls -al
-  #--------------------------------------------------
-  # Travis-CI is not stable with docker...
-  # => so start container with privileged
-  # Travis-CI can't stop properly docker containers at the moment
-  # => can use the same for development and production profile
-  #--------------------------------------------------
-  - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
-  - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
-  - docker-compose -f docker-compose-prod.yml up -d
-  - sleep 20
-  - if [ $REP == "sample-app-cassandra" ]; then docker exec -it sampleCassandra-prod-cassandra init; fi
-  #--------------------------------------------------
-  # start in development profile
-  #--------------------------------------------------
-  - mvn &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
-  #--------------------------------------------------
-  # start in production profile
-  #--------------------------------------------------
-  - mvn -Pprod &
-  - sleep 120
-  - curl --retry 10 --retry-delay 5 -I http://localhost:8080/ | grep "HTTP/1.1 200 OK"
-  - fuser -k 8080/tcp ; sleep 10
+  - $TRAVIS_BUILD_DIR/scripts/01-generate-project.sh
+  - $TRAVIS_BUILD_DIR/scripts/02-generate-entities.sh
+  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER
+  - $TRAVIS_BUILD_DIR/scripts/03-docker-compose.sh
+  - docker ps -a
+  - $TRAVIS_BUILD_DIR/scripts/04-run-dev-profile.sh
+  - $TRAVIS_BUILD_DIR/scripts/05-run-prod-profile.sh
