@@ -20,7 +20,7 @@ install:
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
-  - git clone -b spring_boot_1_3 https://github.com/jhipster/generator-jhipster.git
+  - git clone -b postgresql-use-spring-datasource-url https://github.com/pascalgrimaud/generator-jhipster.git
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
   #--------------------------------------------------
@@ -73,17 +73,20 @@ script:
   #--------------------------------------------------
   - cd $TRAVIS_BUILD_DIR/$REP
   - yo jhipster --force --no-insight
+  #--------------------------------------------------
+  # generate the entities
+  #--------------------------------------------------
   - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-mongodb" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity BankAccount --force --no-insight; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; yo jhipster:entity Label --force --no-insight; fi
-  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; yo jhipster:entity Operation --force --no-insight; fi
+  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity Label --force --no-insight; fi
+  - if [ $REP == "sample-app" ] || [ $REP == "sample-app-postgresql" ] || [ $REP == "sample-app-elasticsearch" ]; then yo jhipster:entity Operation --force --no-insight; fi
   - ls -al
   #--------------------------------------------------
-  # Travis-CI is not stable with docker... so start container with privileged
+  # Travis-CI is not stable with docker...
+  # => so start container with privileged
+  # Travis-CI can't stop properly docker containers at the moment
+  # => can use the same for development and production profile
   #--------------------------------------------------
   - "echo '  privileged: true' >> $TRAVIS_BUILD_DIR/$REP/docker-compose-prod.yml"
-  #--------------------------------------------------
-  # start docker container => can use the same for development and production profile
-  #--------------------------------------------------
   - if [ $REP == "sample-app-cassandra" ]; then docker-compose -f docker-compose-prod.yml build; fi
   - docker-compose -f docker-compose-prod.yml up -d
   - sleep 20
