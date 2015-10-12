@@ -15,7 +15,7 @@ install:
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
-  - git clone -b add_default_email_to_mongodb_and_cassandra https://github.com/pascalgrimaud/generator-jhipster.git
+  - git clone -b spring_boot_1_3 https://github.com/jhipster/generator-jhipster.git
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
   #--------------------------------------------------
