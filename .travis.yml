@@ -15,7 +15,7 @@ install:
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
-  - git clone -b spring_boot_1_3 https://github.com/jhipster/generator-jhipster.git
+  - git clone https://github.com/jhipster/generator-jhipster.git
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
   #--------------------------------------------------
