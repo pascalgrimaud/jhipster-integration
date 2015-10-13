@@ -31,6 +31,14 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+	      {
+            "fieldId": 3,
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20150805124838",
