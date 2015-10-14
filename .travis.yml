@@ -56,7 +56,7 @@ script:
   - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/
   # -- for debug --
   - rm -Rf $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
-  - ln -s $TRAVIS_BUILD_DIR/generator-jhipster node_modules
+  - ln -s $TRAVIS_BUILD_DIR/generator-jhipster $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules
   # -- for debug --
   - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
   - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/
