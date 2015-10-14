@@ -51,6 +51,16 @@ jdk:
   - oraclejdk8
 script:
   - $TRAVIS_BUILD_DIR/scripts/01-generate-project.sh
+  # -- for debug --
+  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
+  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/
+  # -- for debug --
+  - rm -Rf $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
+  - ln -s $TRAVIS_BUILD_DIR/generator-jhipster node_modules
+  # -- for debug --
+  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
+  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/
+  # -- for debug --
   - $TRAVIS_BUILD_DIR/scripts/02-generate-entities.sh
   - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER
   - $TRAVIS_BUILD_DIR/scripts/03-docker-compose.sh
