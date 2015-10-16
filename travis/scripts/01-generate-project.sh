@@ -1,4 +1,4 @@
 #!/bin/bash
 set -ev
-cd $TRAVIS_BUILD_DIR/$JHIPSTER
+cd $JHIPSTER_SAMPLES/$JHIPSTER
 yo jhipster --force --no-insight

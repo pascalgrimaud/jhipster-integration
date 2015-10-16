@@ -6,14 +6,29 @@ services:
 language: node_js
 node_js:
   - "0.12"
+jdk:
+  - oraclejdk8
+env:
+  - JHIPSTER_MVN_DEP=0
+  - JHIPSTER_TRAVIS=$TRAVIS_BUILD_DIR/travis
+  - JHIPSTER_INSTALL=$JHIPSTER_TRAVIS/install
+  - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
+  - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
+  matrix:
+  - JHIPSTER=app-mysql
+  - JHIPSTER=app-psql-es
+  - JHIPSTER=app-mongodb
+  - JHIPSTER=app-cassandra
+  - JHIPSTER=app-gradle
 before_install:
   - sudo service docker restart ; sleep 10
   - sudo /etc/init.d/postgresql stop
-  - jdk_switcher use oraclejdk8
+  # - jdk_switcher use oraclejdk8
 install:
-  - $TRAVIS_BUILD_DIR/install/01-install-docker-compose.sh
-  - $TRAVIS_BUILD_DIR/install/02-docker-pull.sh
-  - $TRAVIS_BUILD_DIR/install/03-install-jhipster-stack.sh
+  - $JHIPSTER_WORK/install/01-install-docker-compose.sh
+  - $JHIPSTER_WORK/install/02-docker-pull.sh
+  - $JHIPSTER_WORK/install/03-install-jhipster-stack.sh
+  - $JHIPSTER_WORK/install/04-downloadMvnDep.sh
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
@@ -41,18 +56,8 @@ install:
   - grunt --version
   - docker version
   - docker-compose version
-env:
-  matrix:
-  - JHIPSTER=samples/sample-app
-  - JHIPSTER=samples/sample-app-postgresql
-  - JHIPSTER=samples/sample-app-mongodb
-  - JHIPSTER=samples/sample-app-cassandra
-  - JHIPSTER=samples/sample-app-elasticsearch
-  - JHIPSTER=samples/sample-app-gradle
-jdk:
-  - oraclejdk8
 script:
-  - $TRAVIS_BUILD_DIR/scripts/01-generate-project.sh
+  - $JHIPSTER_WORK/scripts/01-generate-project.sh
   # -- for debug --
   - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
   - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/

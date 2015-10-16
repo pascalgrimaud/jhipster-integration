@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "baseName": "sampleElasticSearch",
+    "baseName": "samplePsqlEs",
     "packageName": "com.mycompany.myapp",
     "packageFolder": "com/mycompany/myapp",
     "authenticationType": "session",
@@ -8,15 +8,13 @@
     "clusteredHttpSession": "no",
     "websocket": "no",
     "databaseType": "sql",
-    "devDatabaseType": "h2Memory",
-    "prodDatabaseType": "mysql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
     "searchEngine": "elasticsearch",
-    "useCompass": false,
+    "useSass": false,
     "buildTool": "maven",
     "frontendBuilder": "grunt",
-    "javaVersion": "8",
     "enableTranslation": true,
-    "rememberMeKey": "6797bef991a7532ae41bf665c7f3d20d8936efa8",
-    "useSass": false
+    "rememberMeKey": "3b5ca9eb9a240e2b160621c9b68ac3888354df79"
   }
 }

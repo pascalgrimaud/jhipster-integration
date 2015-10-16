@@ -1,21 +1,20 @@
 {
   "generator-jhipster": {
-    "baseName": "samplePostgreSQL",
+    "baseName": "sampleMongoDB",
     "packageName": "com.mycompany.myapp",
     "packageFolder": "com/mycompany/myapp",
     "authenticationType": "session",
-    "hibernateCache": "ehcache",
+    "hibernateCache": "no",
     "clusteredHttpSession": "no",
     "websocket": "no",
-    "databaseType": "sql",
-    "devDatabaseType": "postgresql",
-    "prodDatabaseType": "postgresql",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
     "searchEngine": "no",
     "useSass": false,
     "buildTool": "maven",
     "frontendBuilder": "grunt",
-    "javaVersion": "8",
     "enableTranslation": true,
-    "rememberMeKey": "0a8de0b91f86bc880b890a3dc1df51f2e663b7c1"
+    "rememberMeKey": "fd84e06b20ab9f483ece9c3052766a615f2c42a3"
   }
 }
