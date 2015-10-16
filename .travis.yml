@@ -9,6 +9,12 @@ node_js:
 jdk:
   - oraclejdk8
 env:
+  global:
+  - JHIPSTER_MVN_DEP=0
+  - JHIPSTER_TRAVIS=$TRAVIS_BUILD_DIR/travis
+  - JHIPSTER_INSTALL=$JHIPSTER_TRAVIS/install
+  - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
+  - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
   - JHIPSTER=app-mysql
   - JHIPSTER=app-psql-es
@@ -16,11 +22,6 @@ env:
   - JHIPSTER=app-cassandra
   - JHIPSTER=app-gradle
 before_install:
-  - JHIPSTER_MVN_DEP=0
-  - JHIPSTER_TRAVIS=$TRAVIS_BUILD_DIR/travis
-  - JHIPSTER_INSTALL=$JHIPSTER_TRAVIS/install
-  - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
-  - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   - sudo service docker restart ; sleep 10
   - sudo /etc/init.d/postgresql stop
   # - jdk_switcher use oraclejdk8
