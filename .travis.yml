@@ -25,10 +25,10 @@ before_install:
   - sudo /etc/init.d/postgresql stop
   # - jdk_switcher use oraclejdk8
 install:
-  - $JHIPSTER_WORK/install/01-install-docker-compose.sh
-  - $JHIPSTER_WORK/install/02-docker-pull.sh
-  - $JHIPSTER_WORK/install/03-install-jhipster-stack.sh
-  - $JHIPSTER_WORK/install/04-downloadMvnDep.sh
+  - $JHIPSTER_INSTALL/01-install-docker-compose.sh
+  - $JHIPSTER_INSTALL/02-docker-pull.sh
+  - $JHIPSTER_INSTALL/03-install-jhipster-stack.sh
+  - $JHIPSTER_INSTALL/04-downloadMvnDep.sh
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
@@ -57,20 +57,18 @@ install:
   - docker version
   - docker-compose version
 script:
-  - $JHIPSTER_WORK/scripts/01-generate-project.sh
-  # -- for debug --
-  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
-  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/
-  # -- for debug --
-  - rm -Rf $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
-  - ln -s $TRAVIS_BUILD_DIR/generator-jhipster $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules
-  # -- for debug --
-  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/
-  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER/node_modules/generator-jhipster/entity/
-  # -- for debug --
-  - $TRAVIS_BUILD_DIR/scripts/02-generate-entities.sh
-  - ls -al $TRAVIS_BUILD_DIR/$JHIPSTER
-  - $TRAVIS_BUILD_DIR/scripts/03-docker-compose.sh
+  - $JHIPSTER_SCRIPTS/01-generate-project.sh
+
+  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
+  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/entity/
+  - rm -Rf $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
+  - ln -s $TRAVIS_BUILD_DIR/generator-jhipster $JHIPSTER_SAMPLES/$JHIPSTER/node_modules
+  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
+  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/entity/
+
+  - $JHIPSTER_SCRIPTS/02-generate-entities.sh
+  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER
+  - $JHIPSTER_SCRIPTS/03-docker-compose.sh
   - docker ps -a
-  - $TRAVIS_BUILD_DIR/scripts/04-run-dev-profile.sh
-  - $TRAVIS_BUILD_DIR/scripts/05-run-prod-profile.sh
+  - $JHIPSTER_SCRIPTS/04-run-dev-profile.sh
+  - $JHIPSTER_SCRIPTS/05-run-prod-profile.sh
