@@ -3,7 +3,9 @@ os:
 sudo: required
 services:
   - docker
-language: java
+language: node_js
+node_js:
+  - "0.12"
 before_install:
   - sudo service docker restart ; sleep 10
   - sudo /etc/init.d/postgresql stop
