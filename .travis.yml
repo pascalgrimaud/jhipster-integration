@@ -17,10 +17,10 @@ env:
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
   - JHIPSTER=app-mysql
-  - JHIPSTER=app-psql-es
-  - JHIPSTER=app-mongodb
-  - JHIPSTER=app-cassandra
-  - JHIPSTER=app-gradle
+  # - JHIPSTER=app-psql-es
+  # - JHIPSTER=app-mongodb
+  # - JHIPSTER=app-cassandra
+  # - JHIPSTER=app-gradle
 before_install:
   - sudo service docker restart ; sleep 10
   - sudo /etc/init.d/postgresql stop

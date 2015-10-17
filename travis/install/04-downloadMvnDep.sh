@@ -5,6 +5,7 @@ if [ $JHIPSTER_MVN_DEP == 1 ]; then
   docker run --privileged -d -p 4022:22 --name=jhipster-docker -t jdubois/jhipster-docker
   docker cp jhipster-docker:/home/jhipster/.m2/repository/ $TRAVIS_BUILD_DIR/.m2/
   docker cp jhipster-docker:/home/jhipster/jhipster-sample-app/node_modules/ $JHIPSTER_SAMPLES/$JHIPSTER/
+  ls -al $TRAVIS_BUILD_DIR/.m2/repository/
 else
   cd $TRAVIS_BUILD_DIR/
   git clone https://github.com/jhipster/jhipster-sample-app.git
