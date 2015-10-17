@@ -9,17 +9,17 @@ jdk:
   - oraclejdk8
 env:
   global:
-  - JHIPSTER_MVN_DEP=1
+  - JHIPSTER_MVN_DEP=2
   - JHIPSTER_TRAVIS=$TRAVIS_BUILD_DIR/travis
   - JHIPSTER_INSTALL=$JHIPSTER_TRAVIS/install
   - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
   - JHIPSTER=app-mysql
-  - JHIPSTER=app-psql-es
-  - JHIPSTER=app-mongodb
-  - JHIPSTER=app-cassandra
-  - JHIPSTER=app-gradle
+  # - JHIPSTER=app-psql-es
+  # - JHIPSTER=app-mongodb
+  # - JHIPSTER=app-cassandra
+  # - JHIPSTER=app-gradle
 before_install:
   - sudo service docker restart
   - sudo /etc/init.d/postgresql stop
