@@ -24,8 +24,8 @@ elif [ $JHIPSTER_MVN_DEP == 1 ]; then
 elif [ $JHIPSTER_MVN_DEP == 2 ]; then
   cd $TRAVIS_BUILD_DIR/
   git clone https://github.com/pascalgrimaud/jhipster-lib.git
-  mv $TRAVIS_BUILD_DIR/jh-lib/repository $HOME/.m2/
-  mv $TRAVIS_BUILD_DIR/jh-lib/node_modules/ $JHIPSTER_SAMPLES/$JHIPSTER/
+  mv $TRAVIS_BUILD_DIR/jhipster-lib/repository $HOME/.m2/
+  mv $TRAVIS_BUILD_DIR/jhipster-lib/node_modules/ $JHIPSTER_SAMPLES/$JHIPSTER/
   ls -al $HOME/.m2/
   ls -al $HOME/.m2/repository/
   ls -al $JHIPSTER_SAMPLES/$JHIPSTER/
