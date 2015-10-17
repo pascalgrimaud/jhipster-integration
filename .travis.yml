@@ -1,6 +1,5 @@
 os:
   - linux
-sudo: required
 services:
   - docker
 language: node_js
@@ -22,15 +21,14 @@ env:
   - JHIPSTER=app-cassandra
   - JHIPSTER=app-gradle
 before_install:
-  - sudo service docker restart ; sleep 10
+  - sudo service docker restart
   - sudo /etc/init.d/postgresql stop
-  # - jdk_switcher use oraclejdk8
 install:
   - $JHIPSTER_INSTALL/01-install-docker-compose.sh
   - $JHIPSTER_INSTALL/02-docker-pull.sh
   - $JHIPSTER_INSTALL/03-install-jhipster-stack.sh
   #--------------------------------------------------
-  # use a snapshot version of jhispter
+  # use a snapshot version of jhipster
   #--------------------------------------------------
   - git clone https://github.com/jhipster/generator-jhipster.git
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
@@ -56,8 +54,7 @@ install:
   - docker-compose version
 script:
   - $JHIPSTER_SCRIPTS/01-generate-project.sh
-  - rm -Rf $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
-  - ln -s $TRAVIS_BUILD_DIR/generator-jhipster $JHIPSTER_SAMPLES/$JHIPSTER/node_modules
+  - npm link generator-jhipster
   - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
   - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/entity/
 
