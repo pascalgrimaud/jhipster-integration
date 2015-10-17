@@ -29,7 +29,6 @@ install:
   - $JHIPSTER_INSTALL/01-install-docker-compose.sh
   - $JHIPSTER_INSTALL/02-docker-pull.sh
   - $JHIPSTER_INSTALL/03-install-jhipster-stack.sh
-  - $JHIPSTER_INSTALL/04-downloadMvnDep.sh
   #--------------------------------------------------
   # use a snapshot version of jhispter
   #--------------------------------------------------
@@ -37,11 +36,9 @@ install:
   - cd $TRAVIS_BUILD_DIR/generator-jhipster
   - npm link
   #--------------------------------------------------
-  # clone and get dependency offline
+  # get dependency to speed up the build
   #--------------------------------------------------
-  - cd $TRAVIS_BUILD_DIR/
-  - git clone https://github.com/jhipster/jhipster-sample-app.git
-  - cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
+  - $JHIPSTER_INSTALL/04-downloadMvnDep.sh
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
@@ -59,9 +56,6 @@ install:
   - docker-compose version
 script:
   - $JHIPSTER_SCRIPTS/01-generate-project.sh
-
-  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
-  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/entity/
   - rm -Rf $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
   - ln -s $TRAVIS_BUILD_DIR/generator-jhipster $JHIPSTER_SAMPLES/$JHIPSTER/node_modules
   - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
@@ -69,6 +63,7 @@ script:
 
   - $JHIPSTER_SCRIPTS/02-generate-entities.sh
   - ls -al $JHIPSTER_SAMPLES/$JHIPSTER
+
   - $JHIPSTER_SCRIPTS/03-docker-compose.sh
   - docker ps -a
   - $JHIPSTER_SCRIPTS/04-run-dev-profile.sh
