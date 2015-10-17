@@ -4,6 +4,8 @@ sudo: required
 services:
   - docker
 language: node_js
+node_js:
+  - "4.1.2"
 jdk:
   - oraclejdk8
 env:
