@@ -1,0 +1,20 @@
+{
+  "generator-jhipster": {
+    "baseName": "sampleWebsocketNoi18n",
+    "packageName": "com.mycompany.myapp",
+    "packageFolder": "com/mycompany/myapp",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "no",
+    "useSass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": false,
+    "rememberMeKey": "92205e3a5f60e8a98a0258ad22b7228b07ad321b"
+  }
+}
