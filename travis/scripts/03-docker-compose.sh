@@ -10,3 +10,4 @@ sleep 20
 if [ $JHIPSTER == "app-cassandra" ]; then
   docker exec -it sampleCassandra-prod-cassandra init
 fi
+docker ps -a
