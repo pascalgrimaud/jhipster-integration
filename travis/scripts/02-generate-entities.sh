@@ -2,7 +2,7 @@
 set -ev
 cd $JHIPSTER_SAMPLES/$JHIPSTER
 # could optimize the test
-# let like this to easily change / add / remove table in future
+# let like this to easily add/change/remove entities in future
 if [ $JHIPSTER == "app-gradle" ]; then
   yo jhipster:entity BankAccount --force --no-insight
   yo jhipster:entity Label --force --no-insight

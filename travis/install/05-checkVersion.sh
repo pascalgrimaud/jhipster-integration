@@ -2,13 +2,12 @@
 set -ev
 java -version
 git --version
-yo --version
 mvn -v
 node -v
 npm -v
 bower -v
+yo --version
 grunt --version
 gulp -v
-grunt --version
 docker version
 docker-compose version
