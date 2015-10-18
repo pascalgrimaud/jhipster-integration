@@ -22,6 +22,7 @@ env:
   - JHIPSTER=app-gradle
 before_install:
   - sudo service docker restart
+  - sudo /etc/init.d/mysql stop
   - sudo /etc/init.d/postgresql stop
 install:
   - $JHIPSTER_INSTALL/01-install-docker-compose.sh
@@ -47,5 +48,5 @@ script:
   - $JHIPSTER_SCRIPTS/01-generate-project.sh
   - $JHIPSTER_SCRIPTS/02-generate-entities.sh
   - $JHIPSTER_SCRIPTS/03-docker-compose.sh
-  # - $JHIPSTER_SCRIPTS/04-run-dev-profile.sh
+  - $JHIPSTER_SCRIPTS/04-run-dev-profile.sh
   - $JHIPSTER_SCRIPTS/05-run-prod-profile.sh
