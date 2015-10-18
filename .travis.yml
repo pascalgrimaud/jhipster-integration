@@ -21,8 +21,9 @@ env:
   - JHIPSTER=app-cassandra
   - JHIPSTER=app-gradle
 before_install:
+  - service --status-all
   - sudo service docker restart
-  - sudo /etc/init.d/mysql stop
+  - sudo service mysql stop
   - sudo /etc/init.d/postgresql stop
 install:
   - $JHIPSTER_INSTALL/01-install-docker-compose.sh
