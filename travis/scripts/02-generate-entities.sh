@@ -7,4 +7,5 @@ if [ $JHIPSTER != "app-cassandra" ]; then
     yo jhipster:entity Label --force --no-insight
     yo jhipster:entity Operation --force --no-insight
   fi
+  ls -al $JHIPSTER_SAMPLES/$JHIPSTER/.jhipster/
 fi

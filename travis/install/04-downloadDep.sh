@@ -6,7 +6,8 @@ set -ev
 if [ $JHIPSTER_MVN_DEP == 0 ]; then
   cd $TRAVIS_BUILD_DIR/
   git clone https://github.com/jhipster/jhipster-sample-app.git
-  cd $TRAVIS_BUILD_DIR/jhipster-sample-app/ && mvn dependency:go-offline
+  cd $TRAVIS_BUILD_DIR/jhipster-sample-app/
+  mvn dependency:go-offline
 #-------------------------------------------------------------------------------
 # pull official docker image, get .m2 and node_modules
 #-------------------------------------------------------------------------------

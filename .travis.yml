@@ -16,10 +16,10 @@ env:
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
   - JHIPSTER=app-mysql
-  # - JHIPSTER=app-psql-es
-  # - JHIPSTER=app-mongodb
-  # - JHIPSTER=app-cassandra
-  # - JHIPSTER=app-gradle
+  - JHIPSTER=app-psql-es
+  - JHIPSTER=app-mongodb
+  - JHIPSTER=app-cassandra
+  - JHIPSTER=app-gradle
 before_install:
   - sudo service docker restart
   - sudo /etc/init.d/postgresql stop
@@ -27,16 +27,7 @@ install:
   - $JHIPSTER_INSTALL/01-install-docker-compose.sh
   - $JHIPSTER_INSTALL/02-docker-pull.sh
   - $JHIPSTER_INSTALL/03-install-jhipster-stack.sh
-  #--------------------------------------------------
-  # use a snapshot version of jhipster
-  #--------------------------------------------------
-  - git clone https://github.com/jhipster/generator-jhipster.git
-  - cd $TRAVIS_BUILD_DIR/generator-jhipster
-  - npm link
-  #--------------------------------------------------
-  # get dependency to speed up the build
-  #--------------------------------------------------
-  - $JHIPSTER_INSTALL/04-downloadMvnDep.sh
+  - $JHIPSTER_INSTALL/04-downloadDep.sh
   #--------------------------------------------------
   # check version
   #--------------------------------------------------
@@ -54,14 +45,7 @@ install:
   - docker-compose version
 script:
   - $JHIPSTER_SCRIPTS/01-generate-project.sh
-  - npm link generator-jhipster
-  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/
-  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER/node_modules/generator-jhipster/entity/
-
   - $JHIPSTER_SCRIPTS/02-generate-entities.sh
-  - ls -al $JHIPSTER_SAMPLES/$JHIPSTER
-
   - $JHIPSTER_SCRIPTS/03-docker-compose.sh
-  - docker ps -a
   - $JHIPSTER_SCRIPTS/04-run-dev-profile.sh
   - $JHIPSTER_SCRIPTS/05-run-prod-profile.sh
