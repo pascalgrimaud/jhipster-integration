@@ -15,13 +15,11 @@ env:
   - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
-  - JHIPSTER_MODE=-Pdev
-  - JHIPSTER_MODE=-Pprod
-  - JHIPSTER=app-mysql
-  - JHIPSTER=app-psql-es
-  - JHIPSTER=app-mongodb
-  - JHIPSTER=app-cassandra
-  - JHIPSTER=app-gradle
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mysql
+  - JHIPSTER_MODE=-Pprod  JHIPSTER=app-psql-es
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mongodb
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-cassandra
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gradle
 before_install:
   - service --status-all
   - sudo service docker restart
