@@ -15,6 +15,8 @@ env:
   - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
+  - JHIPSTER_MODE=-Pdev
+  - JHIPSTER_MODE=-Pprod
   - JHIPSTER=app-mysql
   - JHIPSTER=app-psql-es
   - JHIPSTER=app-mongodb
@@ -49,4 +51,4 @@ script:
   - $JHIPSTER_SCRIPTS/02-generate-entities.sh
   - $JHIPSTER_SCRIPTS/03-docker-compose.sh
   - $JHIPSTER_SCRIPTS/04-run-dev-profile.sh
-  - $JHIPSTER_SCRIPTS/05-run-prod-profile.sh
+  # - $JHIPSTER_SCRIPTS/05-run-prod-profile.sh
