@@ -3,6 +3,7 @@ os:
 services:
   - docker
 language: node_js
+sudo: false
 cache:
   directories:
   - /home/travis/.nvm/versions/node/v4.1.2/lib/node_modules/
