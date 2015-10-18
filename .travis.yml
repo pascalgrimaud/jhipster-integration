@@ -5,7 +5,7 @@ services:
 language: node_js
 cache:
   directories:
-  - /usr/lib/node_modules/
+  - node_modules
 node_js:
   - "4.1.2"
 jdk:
@@ -18,11 +18,16 @@ env:
   - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
+  # - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gradle
   - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mysql
+  - JHIPSTER_MODE=-Pprod  JHIPSTER=app-mysql
   - JHIPSTER_MODE=-Pprod  JHIPSTER=app-psql-es
   - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mongodb
   - JHIPSTER_MODE=-Pdev   JHIPSTER=app-cassandra
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gradle
+  # - JHIPSTER_MODE=-Pdev   JHIPSTER=app-oracle
+  # - JHIPSTER_MODE=-Pdev   JHIPSTER=app-websocket
+  # - JHIPSTER_MODE=-Pdev   JHIPSTER=app-noi18n
+  # - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gulp
 before_install:
   - service --status-all
   - sudo service docker restart
