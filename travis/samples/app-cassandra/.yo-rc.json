@@ -11,12 +11,13 @@
     "devDatabaseType": "cassandra",
     "prodDatabaseType": "cassandra",
     "searchEngine": "no",
-    "useCompass": false,
+    "useSass": false,
     "buildTool": "maven",
     "frontendBuilder": "grunt",
-    "javaVersion": "8",
     "enableTranslation": true,
-    "rememberMeKey": "9cd465cf5c2009c6d3ba029649816089201b55fb",
-    "useSass": false
+    "rememberMeKey": "cc15d9676c1f804a5a1cf653d0cb9ae1f9d6ea47",
+    "testFrameworks": [
+      "gatling"
+    ]
   }
 }

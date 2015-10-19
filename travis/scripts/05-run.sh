@@ -1,5 +1,8 @@
 #!/bin/bash
 set -ev
+#--------------------------------------------------
+# Start the application
+#--------------------------------------------------
 cd $JHIPSTER_SAMPLES/$JHIPSTER
 if [ $JHIPSTER != "app-gradle" ]; then
   mvn $JHIPSTER_MODE &

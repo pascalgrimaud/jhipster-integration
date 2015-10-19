@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "baseName": "sampleMongoDB",
+    "baseName": "sampleMongo",
     "packageName": "com.mycompany.myapp",
     "packageFolder": "com/mycompany/myapp",
     "authenticationType": "session",
@@ -15,6 +15,9 @@
     "buildTool": "maven",
     "frontendBuilder": "grunt",
     "enableTranslation": true,
-    "rememberMeKey": "fd84e06b20ab9f483ece9c3052766a615f2c42a3"
+    "rememberMeKey": "4207b631feea9ca5dc7d09b5dd45cf3c30222854",
+    "testFrameworks": [
+      "gatling"
+    ]
   }
 }

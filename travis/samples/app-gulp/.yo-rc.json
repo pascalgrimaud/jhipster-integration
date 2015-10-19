@@ -8,13 +8,16 @@
     "clusteredHttpSession": "no",
     "websocket": "no",
     "databaseType": "sql",
-    "devDatabaseType": "h2Memory",
+    "devDatabaseType": "h2Disk",
     "prodDatabaseType": "mysql",
     "searchEngine": "no",
     "useSass": false,
     "buildTool": "maven",
     "frontendBuilder": "gulp",
     "enableTranslation": true,
-    "rememberMeKey": "142f4786639dbd665ad52282c1e486412337815c"
+    "rememberMeKey": "5b5e44a65ccb2d7ab32491bb5764f28f6013cfcb",
+    "testFrameworks": [
+      "gatling"
+    ]
   }
 }
