@@ -16,12 +16,15 @@ env:
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
   - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gradle
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-default
   - JHIPSTER_MODE=-Pprod  JHIPSTER=app-mysql
   - JHIPSTER_MODE=-Pprod  JHIPSTER=app-psql-es
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mongodb
   - JHIPSTER_MODE=-Pdev   JHIPSTER=app-cassandra
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mongodb
   - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gulp
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-websocket-noi18n
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-websocket
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-noi18n
+  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-oauth2
 before_install:
   - sudo service docker restart
   - sudo /etc/init.d/postgresql stop
@@ -34,5 +37,6 @@ install:
 script:
   - $JHIPSTER_SCRIPTS/01-generate-project.sh
   - $JHIPSTER_SCRIPTS/02-generate-entities.sh
-  - $JHIPSTER_SCRIPTS/03-docker-compose.sh
-  - $JHIPSTER_SCRIPTS/04-run-profile.sh
+  - $JHIPSTER_SCRIPTS/03-tests.sh
+  - $JHIPSTER_SCRIPTS/04-docker-compose.sh
+  - $JHIPSTER_SCRIPTS/05-run.sh

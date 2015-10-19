@@ -1,5 +1,8 @@
 #!/bin/bash
 set -ev
+#--------------------------------------------------
+# Start docker container
+#--------------------------------------------------
 cd $JHIPSTER_SAMPLES/$JHIPSTER
 # travis is not stable with docker... need to start container with privileged
 echo '  privileged: true' >> $JHIPSTER_SAMPLES/$JHIPSTER/docker-compose-prod.yml

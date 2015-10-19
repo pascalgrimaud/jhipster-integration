@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "baseName": "samplePsqlEs",
+    "baseName": "sampleDefault",
     "packageName": "com.mycompany.myapp",
     "packageFolder": "com/mycompany/myapp",
     "authenticationType": "session",
@@ -8,14 +8,14 @@
     "clusteredHttpSession": "no",
     "websocket": "no",
     "databaseType": "sql",
-    "devDatabaseType": "postgresql",
-    "prodDatabaseType": "postgresql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
     "searchEngine": "no",
     "useSass": false,
     "buildTool": "maven",
     "frontendBuilder": "grunt",
     "enableTranslation": true,
-    "rememberMeKey": "efaf561e5400af2877060b33324f34288d671c97",
+    "rememberMeKey": "f19f0827c622eb9b81f5227a869ccd44932d78eb",
     "testFrameworks": [
       "gatling"
     ]
