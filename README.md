@@ -3,6 +3,8 @@ Tests integration with Travis-CI
 
 [![Build Status](https://travis-ci.org/pascalgrimaud/jhipster-integration.svg?branch=master)](https://travis-ci.org/pascalgrimaud/jhipster-integration)
 
+Build: 2015-10-22 15:52
+
 Build: 2015-10-22 14:09
 
 Build: 2015-10-21 18:39
