@@ -3,7 +3,7 @@ set -ev
 #-------------------------------------------------------------------------------
 # clone official jhipster-sample-app
 #-------------------------------------------------------------------------------
-if [ $JHIPSTER_MVN_DEP == 0 ]; then
+if [ $JHIPSTER_MVN_DEP == 1 ]; then
   cd $TRAVIS_BUILD_DIR/
   git clone https://github.com/jhipster/jhipster-sample-app.git
   cd $TRAVIS_BUILD_DIR/jhipster-sample-app/
@@ -11,7 +11,7 @@ if [ $JHIPSTER_MVN_DEP == 0 ]; then
 #-------------------------------------------------------------------------------
 # pull official docker image, get .m2 and node_modules
 #-------------------------------------------------------------------------------
-elif [ $JHIPSTER_MVN_DEP == 1 ]; then
+elif [ $JHIPSTER_MVN_DEP == 2 ]; then
   docker pull jdubois/jhipster-docker
   docker run --privileged -d -p 4022:22 --name=jhipster-docker -t jdubois/jhipster-docker
   docker cp jhipster-docker:/home/jhipster/.m2/repository/ $HOME/.m2/
@@ -22,7 +22,7 @@ elif [ $JHIPSTER_MVN_DEP == 1 ]; then
 #-------------------------------------------------------------------------------
 # use personal repository that contain .m2 and node_modules
 #-------------------------------------------------------------------------------
-elif [ $JHIPSTER_MVN_DEP == 2 ]; then
+elif [ $JHIPSTER_MVN_DEP == 3 ]; then
   cd $TRAVIS_BUILD_DIR/
   git clone https://github.com/pascalgrimaud/jhipster-lib.git
   rm -Rf $HOME/.m2/repository/
@@ -31,4 +31,9 @@ elif [ $JHIPSTER_MVN_DEP == 2 ]; then
   ls -al $HOME/.m2/
   ls -al $HOME/.m2/repository/
   ls -al $JHIPSTER_SAMPLES/$JHIPSTER/
-fi;
+#-------------------------------------------------------------------------------
+# By default, do nothing
+#-------------------------------------------------------------------------------
+else
+  echo "By default, no speedup build..."
+fi
