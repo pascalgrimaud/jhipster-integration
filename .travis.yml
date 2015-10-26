@@ -9,31 +9,31 @@ jdk:
   - oraclejdk8
 env:
   global:
-  - JHIPSTER_MVN_DEP=2
+  - JHIPSTER_MVN_DEP=3
+  - RUNTASK=1
   - JHIPSTER_TRAVIS=$TRAVIS_BUILD_DIR/travis
   - JHIPSTER_INSTALL=$JHIPSTER_TRAVIS/install
   - JHIPSTER_SAMPLES=$JHIPSTER_TRAVIS/samples
   - JHIPSTER_SCRIPTS=$JHIPSTER_TRAVIS/scripts
   matrix:
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gradle
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-default
-  - JHIPSTER_MODE=-Pprod  JHIPSTER=app-mysql
-  - JHIPSTER_MODE=-Pprod  JHIPSTER=app-psql-es
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-cassandra
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-mongodb
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-gulp
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-websocket
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-noi18n
-  - JHIPSTER_MODE=-Pdev   JHIPSTER=app-oauth2
+  - PROFILE=dev  JHIPSTER=app-gradle
+  - PROFILE=dev  JHIPSTER=app-default
+  - PROFILE=prod JHIPSTER=app-mysql
+  - PROFILE=prod JHIPSTER=app-psql-es
+  - PROFILE=dev  JHIPSTER=app-cassandra
+  - PROFILE=dev  JHIPSTER=app-mongodb
+  - PROFILE=dev  JHIPSTER=app-gulp
+  - PROFILE=dev  JHIPSTER=app-websocket
+  - PROFILE=dev  JHIPSTER=app-noi18n
+  - PROFILE=dev  JHIPSTER=app-oauth2
 before_install:
   - sudo service docker restart
   - sudo /etc/init.d/postgresql stop
 install:
   - $JHIPSTER_INSTALL/01-install-docker-compose.sh
-  - $JHIPSTER_INSTALL/02-docker-pull.sh
-  - $JHIPSTER_INSTALL/03-install-jhipster-stack.sh
-  - $JHIPSTER_INSTALL/04-downloadDep.sh
-  - $JHIPSTER_INSTALL/05-checkVersion.sh
+  - $JHIPSTER_INSTALL/02-install-jhipster-stack.sh
+  - $JHIPSTER_INSTALL/03-downloadDep.sh
+  - $JHIPSTER_INSTALL/04-checkVersion.sh
 script:
   - $JHIPSTER_SCRIPTS/01-generate-project.sh
   - $JHIPSTER_SCRIPTS/02-generate-entities.sh
