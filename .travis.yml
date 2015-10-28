@@ -9,7 +9,7 @@ jdk:
   - oraclejdk8
 env:
   global:
-  - JHIPSTER_MVN_DEP=3
+  - JHIPSTER_MVN_DEP=1
   - RUNTASK=1
   - JHIPSTER_TRAVIS=$TRAVIS_BUILD_DIR/travis
   - JHIPSTER_INSTALL=$JHIPSTER_TRAVIS/install
