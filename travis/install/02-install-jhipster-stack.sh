@@ -10,4 +10,6 @@ npm install -g gulp
 cd $TRAVIS_BUILD_DIR/
 git clone https://github.com/jhipster/generator-jhipster.git
 cd $TRAVIS_BUILD_DIR/generator-jhipster
-npm install -g
+npm install
+npm link
+npm test
