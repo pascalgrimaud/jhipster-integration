@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ev
 #-------------------------------------------------------------------------------
-# use personal repository that contain .m2 and node_modules
+# use jhipster-lib that contain .m2 and node_modules
 #-------------------------------------------------------------------------------
 if [ $JHIPSTER_MVN_DEP == 1 ]; then
   cd $TRAVIS_BUILD_DIR/
