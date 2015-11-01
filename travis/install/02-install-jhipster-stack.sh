@@ -1,6 +1,11 @@
 #!/bin/bash
 set -ev
 #--------------------------------------------------
+# Install nodejs 5 and npm 3+
+#--------------------------------------------------
+curl -sL https://deb.nodesource.com/setup_5.x | sudo bash -
+apt-get install -y nodejs
+#--------------------------------------------------
 # Install yeoman, bower, grunt and gulp
 #--------------------------------------------------
 npm install -g yo
