@@ -12,7 +12,8 @@ npm install -g gulp
 #--------------------------------------------------
 cd $TRAVIS_BUILD_DIR/
 #--- delete these 2 lines if it's directly included in generator-jhipster
-git clone https://github.com/jhipster/generator-jhipster.git
+# git clone https://github.com/jhipster/generator-jhipster.git
+git clone https://github.com/RGFnaGFuIEd1bmF5/generator-jhipster.git
 cd $TRAVIS_BUILD_DIR/generator-jhipster
 #---
 npm install
