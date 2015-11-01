@@ -1,8 +1,9 @@
 #!/bin/bash
 set -ev
 #--------------------------------------------------
-# Install yeoman, bower, grunt and gulp
+# Upgrade npm, install yeoman, bower, grunt and gulp
 #--------------------------------------------------
+npm install -g npm
 npm install -g yo
 npm install -g bower
 npm install -g grunt-cli
